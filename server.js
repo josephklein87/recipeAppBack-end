@@ -9,7 +9,7 @@ const Recipes = require('./models/recipes.js')
 app.use(express.json());
 app.use(cors());
 
-app.use/("/", appRouter)
+app.use("/", appRouter)
 
 
 app.listen(3000, ()=>{
