@@ -13,7 +13,8 @@ users.post('/newUser', (req, res) => {
     })
 })
 
-users.get('/userLogin', (req, res) => {
+users.put('/userLogin', (req, res) => {
+    console.log(req.body)
     User.findOne({username: req.body.username}, (err, foundUser)=> {
         if (err) {
             console.log(err)
@@ -21,7 +22,7 @@ users.get('/userLogin', (req, res) => {
             res.json("User not found.")
         } else {
          if (bcrypt.compareSync(req.body.password, foundUser.password)) {
-            res.json("You're logged in.")
+            res.json({username: foundUser.username})
          } else {
             res.json("Passwords do not match.")
         }
