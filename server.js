@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const Recipes = require('./models/recipes.js')
 
+
 //=========middle ware============
 app.use(express.json());
 app.use(cors());
@@ -13,7 +14,7 @@ app.use(cors());
 //========ROUTES=======//
 //======================//
 
-//========CREATE/POST ROUTE=======ADD CAR
+//========CREATE/POST ROUTE=======
 app.post('/recipe', (req, res) => {
   Recipes.create(req.body, (err, createdRecipe) =>{
       res.json(createdRecipe);
@@ -21,7 +22,7 @@ app.post('/recipe', (req, res) => {
 });
 
 
-//========GET/READ ROUTE=======GET CAR
+//========GET/READ ROUTE=======
 app.get('/recipe', (req, res) => {
   Recipes.find({}, (err, foundRecipe) => {
       res.json(foundRecipe);
@@ -29,7 +30,7 @@ app.get('/recipe', (req, res) => {
 });
 
 
-//========DELETE ROUTE=======DELETE CAR
+//========DELETE ROUTE=======
 app.delete('/recipe/:id', (req, res)=>{
   Recipes.findByIdAndRemove(req.params.id, (err, deletedRecipe)=>{
       res.json(deletedRecipe);
