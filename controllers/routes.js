@@ -24,6 +24,19 @@ router.post('/', (req, res) => {
     });
   });
 
+  //=========Spicy Filter Route===========
+  router.get('/spicy',(req,res)=>{
+    Recipes.find({spicy:true},(err,showFilter)=>{
+        res.json(showFilter)
+    })
+  })
+  //=======Vegetarian Filter Route =========
+  router.get('/vegan',(req,res)=>{
+    Recipes.find({vegetarian:true},(err,showFilter)=>{
+        res.json(showFilter)
+    })
+  })
+
   //========GET/READ ROUTE=======GET CAR
   router.get('/', (req, res) => {
     Recipes.find({}, (err, foundRecipe) => {
