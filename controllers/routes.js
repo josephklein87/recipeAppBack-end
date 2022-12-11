@@ -13,24 +13,33 @@ router.post('/', (req, res) => {
         res.json(createdRecipe);
     });
   });
-  
-  
+
+  //===========Search Route==========
+  router.post('/search', (req, res) => {
+    const searchResult = req.body.search
+    const regex = new RegExp (searchResult,'i')
+
+    Recipes.find({$or: [{name:regex},{mainIngredient:regex},{nationality:regex}]}, (err, showRecipe) =>{
+        res.json(showRecipe);
+    });
+  });
+
   //========GET/READ ROUTE=======GET CAR
   router.get('/', (req, res) => {
     Recipes.find({}, (err, foundRecipe) => {
         res.json(foundRecipe);
     });
   });
-  
-  
+
+
   //========DELETE ROUTE=======DELETE CAR
   router.delete('/:id', (req, res)=>{
     Recipes.findByIdAndRemove(req.params.id, (err, deletedRecipe)=>{
         res.json(deletedRecipe);
     });
   });
-  
-  
+
+
   //========UPDATE/EDIT ROUTE=======EDIT CAR
   router.put('/:id', (req, res)=>{
     Recipes.findByIdAndUpdate(req.params.id, req.body, {new:true}, (err, updatedRecipe)=>{
@@ -39,11 +48,5 @@ router.post('/', (req, res) => {
   });
 
 
-  //SEARCH
-  router.get('/search', (req, res) => {
-    Recipes.find({name: req.body.name}, (err, foundRecipe) => {
-        res.json(foundRecipe);
-    });
-  });
-
   module.exports = router
+
