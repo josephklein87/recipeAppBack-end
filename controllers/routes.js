@@ -8,31 +8,40 @@ const Recipes = require('../models/recipes.js')
 //======================//
 
 //========CREATE/POST ROUTE=======ADD CAR
-router.post('/recipe', (req, res) => {
+router.post('/', (req, res) => {
     Recipes.create(req.body, (err, createdRecipe) =>{
         res.json(createdRecipe);
     });
   });
-  
-  
+
+  //===========Search Route==========
+  router.post('/search', (req, res) => {
+    const searchResult = req.body.search
+    const regex = new RegExp (searchResult,'i')
+
+    Recipes.find({$or: [{name:regex},{mainIngredient:regex},{nationality:regex}]}, (err, showRecipe) =>{
+        res.json(showRecipe);
+    });
+  });
+
   //========GET/READ ROUTE=======GET CAR
-  router.get('/recipe', (req, res) => {
+  router.get('/', (req, res) => {
     Recipes.find({}, (err, foundRecipe) => {
         res.json(foundRecipe);
     });
   });
-  
-  
+
+
   //========DELETE ROUTE=======DELETE CAR
-  router.delete('/recipe/:id', (req, res)=>{
+  router.delete('/:id', (req, res)=>{
     Recipes.findByIdAndRemove(req.params.id, (err, deletedRecipe)=>{
         res.json(deletedRecipe);
     });
   });
-  
-  
+
+
   //========UPDATE/EDIT ROUTE=======EDIT CAR
-  router.put('/recipe/:id', (req, res)=>{
+  router.put('/:id', (req, res)=>{
     Recipes.findByIdAndUpdate(req.params.id, req.body, {new:true}, (err, updatedRecipe)=>{
         res.json(updatedRecipe);
     });
