@@ -13,40 +13,6 @@ app.use(cors());
 app.use('/recipe',appRouter)
 app.use('/user', userController)
 
-//======================//
-//========ROUTES=======//
-//======================//
-
-//========CREATE/POST ROUTE=======
-app.post('/recipe', (req, res) => {
-  Recipes.create(req.body, (err, createdRecipe) =>{
-      res.json(createdRecipe);
-  });
-});
-
-
-//========GET/READ ROUTE=======
-app.get('/recipe', (req, res) => {
-  Recipes.find({}, (err, foundRecipe) => {
-      res.json(foundRecipe);
-  });
-});
-
-
-//========DELETE ROUTE=======
-app.delete('/recipe/:id', (req, res)=>{
-  Recipes.findByIdAndRemove(req.params.id, (err, deletedRecipe)=>{
-      res.json(deletedRecipe);
-  });
-});
-
-
-//========UPDATE/EDIT ROUTE=======EDIT CAR
-app.put('/recipe/:id', (req, res)=>{
-  Recipes.findByIdAndUpdate(req.params.id, req.body, {new:true}, (err, updatedRecipe)=>{
-      res.json(updatedRecipe);
-  });
-});
 
 
 
