@@ -38,4 +38,12 @@ router.post('/', (req, res) => {
     });
   });
 
+
+  //SEARCH
+  router.get('/search', (req, res) => {
+    Recipes.find({name: req.body.name}, (err, foundRecipe) => {
+        res.json(foundRecipe);
+    });
+  });
+
   module.exports = router
