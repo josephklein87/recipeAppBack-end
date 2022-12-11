@@ -18,6 +18,7 @@ users.put('/userLogin', (req, res) => {
     User.findOne({username: req.body.username}, (err, foundUser)=> {
         if (err) {
             console.log(err)
+            res.json("There was an error.")
         } else if (!foundUser) {
             res.json("User not found.")
         } else {
