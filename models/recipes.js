@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const recipeSchema = new mongoose.Schema(
 {
+    submittedBy: String,
     name: String,
     image: String,
     timeToPrepare: Number,
@@ -9,7 +10,8 @@ const recipeSchema = new mongoose.Schema(
     nationality: String,
     link:String,
     vegetarian: Boolean,
-    spicy: Boolean
+    spicy: Boolean,
+    favs: Array
 });
 
 const Recipes = mongoose.model('Recipe', recipeSchema);
