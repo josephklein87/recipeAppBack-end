@@ -13,12 +13,18 @@ app.use(cors());
 app.use('/recipe',appRouter)
 app.use('/user', userController)
 
+let PORT = 3000;
+if(process.env.PORT){
+	PORT = process.env.PORT
+}
+
+
 
 
 
 mongoose.set('strictQuery', false);
 
-app.listen(3000, ()=>{
+app.listen(PORT, ()=>{
 	console.log('listening');
 
 })

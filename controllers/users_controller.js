@@ -23,7 +23,7 @@ users.put('/userLogin', (req, res) => {
             res.json("User not found.")
         } else {
          if (bcrypt.compareSync(req.body.password, foundUser.password)) {
-            res.json({username: foundUser.username})
+            res.json({username: foundUser.username, _id:foundUser._id})
          } else {
             res.json("Passwords do not match.")
         }
