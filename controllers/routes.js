@@ -15,7 +15,7 @@ router.post('/', (req, res) => {
   });
 
   //===========Search Route==========
-  router.post('/search/:search', (req, res) => {
+  router.get('/search/:search', (req, res) => {
     const searchResult = req.params.search
     const regex = new RegExp (searchResult,'i')
 
