@@ -48,6 +48,14 @@ router.post('/', (req, res) => {
   //   })
   // }
 
+  //=========Favs Filter Route=====================
+  router.get('/favfilter/:id',(req,res)=>{
+    Recipes.find({favs: req.params.id},(err,showFilter)=>{
+        res.json(showFilter)
+    })
+  })
+
+
   //========GET/READ ROUTE=======GET CAR
   router.get('/', (req, res) => {
     Recipes.find({}, (err, foundRecipe) => {
@@ -70,5 +78,18 @@ router.post('/', (req, res) => {
         res.json(updatedRecipe);
     });
   });
+
+  //=======FAVS ROUTES=====================
+  router.put('/fav/:id/:up', (req, res) =>{
+    Recipes.findOneAndUpdate({_id: req.params.id}, {$push:{favs: req.params.up}}, {new:true}, (err, updatedRecipe)=>{
+      res.json(updatedRecipe)
+    })
+  })
+
+  router.put('/unfav/:id/:up', (req, res) =>{
+    Recipes.findOneAndUpdate({_id: req.params.id}, {$pull :{favs: req.params.up}}, {new:true}, (err, updatedRecipe)=>{
+      res.json(updatedRecipe)
+    })
+  })
 
   module.exports = router
