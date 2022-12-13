@@ -15,8 +15,8 @@ router.post('/', (req, res) => {
   });
 
   //===========Search Route==========
-  router.post('/search', (req, res) => {
-    const searchResult = req.body.search
+  router.post('/search/:search', (req, res) => {
+    const searchResult = req.params.search
     const regex = new RegExp (searchResult,'i')
 
     Recipes.find({$or: [{name:regex},{mainIngredient:regex},{nationality:regex}]}, (err, showRecipe) =>{
