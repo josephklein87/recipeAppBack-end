@@ -51,6 +51,13 @@ router.post('/', (req, res) => {
     })
   })
 
+  //=========RATINGS ROUTE=====================================
+  router.put('/rating/:id', (req, res)=>{
+    Recipes.findByIdAndUpdate(req.params.id, {rating: {user: req.body.user, rating: req.body.rating}}, {new:true, upsert:true}, (err, updatedRecipe)=>{
+        res.json(updatedRecipe);
+    });
+  });
+
   //========GET/READ ROUTE=======GET CAR
   router.get('/', (req, res) => {
     Recipes.find({}, (err, foundRecipe) => {
