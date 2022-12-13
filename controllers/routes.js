@@ -15,8 +15,8 @@ router.post('/', (req, res) => {
   });
 
   //===========Search Route==========
-  router.post('/search', (req, res) => {
-    const searchResult = req.body.search
+  router.get('/search/:search', (req, res) => {
+    const searchResult = req.params.search
     const regex = new RegExp (searchResult,'i')
 
     Recipes.find({$or: [{name:regex},{mainIngredient:regex},{nationality:regex}]}, (err, showRecipe) =>{
@@ -57,6 +57,19 @@ router.post('/', (req, res) => {
     })
   })
 
+  //=========My Posts Filter Route===========================
+  router.get('/myposts/:username',(req,res)=>{
+    Recipes.find({submittedBy: req.params.username},(err,showFilter)=>{
+        res.json(showFilter)
+    })
+  })
+
+  //=========RATINGS ROUTE=====================================
+  router.put('/rating/:id', (req, res)=>{
+    Recipes.findByIdAndUpdate(req.params.id, {ratings: {[req.body.user]: req.body.rating}}, {new:true, upsert:true}, (err, updatedRecipe)=>{
+        res.json(updatedRecipe);
+    });
+  });
 
   //========GET/READ ROUTE=======GET CAR
   router.get('/', (req, res) => {

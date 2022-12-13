@@ -11,7 +11,8 @@ const recipeSchema = new mongoose.Schema(
     link:String,
     vegetarian: Boolean,
     spicy: Boolean,
-    favs: Array
+    favs: Array,
+    ratings: {}
 });
 
 const Recipes = mongoose.model('Recipe', recipeSchema);
