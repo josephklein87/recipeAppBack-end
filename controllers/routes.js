@@ -37,8 +37,13 @@ router.post('/', (req, res) => {
     })
   })
   // //========Time Filter Route==========
-  // router.get('/time=<30',(req,res)=>{
-  //   Recipes.fine({time:=<30},(err,showFilter)=>{
+  router.get('/timeless30',(req,res)=>{
+    Recipes.fine({time:{$lt:30}},(err,showFilter)=>{
+      res.json(showFilter)
+    })
+  })
+  // router.get('/timemore30',(req,res)=>{
+  //   Recipes.fine({time:{$gt:30}},(err,showFilter)=>{
   //     res.json(showFilter)
   //   })
   // }
