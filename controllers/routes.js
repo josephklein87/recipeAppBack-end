@@ -44,6 +44,12 @@ router.post('/', (req, res) => {
     })
   })
 
+  //=========My Posts Filter Route===========================
+  router.get('/myposts/:username',(req,res)=>{
+    Recipes.find({submittedBy: req.params.username},(err,showFilter)=>{
+        res.json(showFilter)
+    })
+  })
 
   //========GET/READ ROUTE=======GET CAR
   router.get('/', (req, res) => {
