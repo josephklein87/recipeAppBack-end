@@ -36,18 +36,20 @@ router.post('/', (req, res) => {
         res.json(showFilter)
     })
   })
-  // //========Time Filter Route==========
-  router.get('/timeless30',(req,res)=>{
-    Recipes.fine({time:{$lt:30}},(err,showFilter)=>{
+  //========Time Filter Route==========
+
+  //========Less than or equal to 30=======
+  router.get('/timeless',(req,res)=>{
+    Recipes.find({timeToPrepare: {$lte:30} },(err,showFilter)=>{
       res.json(showFilter)
     })
   })
-  // router.get('/timemore30',(req,res)=>{
-  //   Recipes.fine({time:{$gt:30}},(err,showFilter)=>{
-  //     res.json(showFilter)
-  //   })
-  // }
-
+  //========Greater than 30===========
+  router.get('/timemore',(req,res)=>{
+    Recipes.find({timeToPrepare: {$gt:30} },(err,showFilter)=>{
+      res.json(showFilter)
+    })
+  })  
   //=========Favs Filter Route=====================
   router.get('/favfilter/:id',(req,res)=>{
     Recipes.find({favs: req.params.id},(err,showFilter)=>{
