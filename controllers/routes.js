@@ -7,6 +7,10 @@ const Recipes = require('../models/recipes.js')
 //========ROUTES=======//
 //======================//
 
+// Recipes.updateMany({}, {$unset:{ratings: 1}}, (err, deletedRecipe)=>{
+//   console.log(deletedRecipe)
+// })
+
 //========CREATE/POST ROUTE=======ADD CAR
 router.post('/', (req, res) => {
     Recipes.create(req.body, (err, createdRecipe) =>{
@@ -66,10 +70,28 @@ router.post('/', (req, res) => {
 
   //=========RATINGS ROUTE=====================================
   router.put('/rating/:id', (req, res)=>{
-    Recipes.findByIdAndUpdate(req.params.id, {ratings: {[req.body.user]: req.body.rating}}, {new:true, upsert:true}, (err, updatedRecipe)=>{
+    Recipes.findByIdAndUpdate(req.params.id, {$push: {ratings: {user: req.body.user, rating: req.body.rating}}}, {new:true, upsert:true}, (err, updatedRecipe)=>{
         res.json(updatedRecipe);
     });
   });
+
+  router.put('/rating/alreadyrated/:id', (req, res)=> {
+    Recipes.findOneAndUpdate({_id:req.params.id}, {$pull: {ratings: {user: req.body.user}}}, {new:true}, (err, updatedRecipe)=>{
+      res.json(updatedRecipe);
+  });
+});
+
+router.put('/averagerating/:id', (req, res)=>{
+  Recipes.findByIdAndUpdate(req.params.id, {avgRating: req.body.avg}, {new:true, upsert:true}, (err, updatedRecipe)=>{
+      res.json(updatedRecipe);
+  });
+});
+
+router.get('/highestrated', (req, res)=>{
+  Recipes.find({},(err, foundRecipe) =>{
+    res.json(foundRecipe)
+  }).sort({avgRating: -1})
+})
 
   //========GET/READ ROUTE=======GET CAR
   router.get('/', (req, res) => {
