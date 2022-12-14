@@ -7,9 +7,6 @@ const Recipes = require('../models/recipes.js')
 //========ROUTES=======//
 //======================//
 
-// Recipes.updateMany({}, {$unset: {ratings: 1}}, (err, deletedRecipes)=>{
-//   console.log(deletedRecipes)
-// })
 
 //========CREATE/POST ROUTE=======ADD CAR
 router.post('/', (req, res) => {
@@ -76,8 +73,8 @@ router.post('/', (req, res) => {
   });
 
   router.put('/rating/alreadyrated/:id', (req, res)=> {
-    Recipes.findByIdAndUpdate(req.params.id, {$pull: {ratings: {user:req.body.user}}}, {new:true}, (err, updatedRecipe)=>{
-      console.log(updatedRecipe);
+    Recipes.findOneAndUpdate({_id:req.params.id}, {$pull: {ratings: {user: req.body.user}}, $push: {ratings: {user: req.body.user, rating: req.body.rating}}}, {new:true}, (err, updatedRecipe)=>{
+      res.json(updatedRecipe);
   });
 });
 
