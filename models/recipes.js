@@ -12,7 +12,7 @@ const recipeSchema = new mongoose.Schema(
     vegetarian: Boolean,
     spicy: Boolean,
     favs: Array,
-    ratings: [{}]
+    ratings: [{user: String, rating: Number}]
 });
 
 const Recipes = mongoose.model('Recipe', recipeSchema);

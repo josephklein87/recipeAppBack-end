@@ -66,10 +66,16 @@ router.post('/', (req, res) => {
 
   //=========RATINGS ROUTE=====================================
   router.put('/rating/:id', (req, res)=>{
-    Recipes.findByIdAndUpdate(req.params.id, {$push: {ratings: {[req.body.user]: req.body.rating}}}, {new:true, upsert:true}, (err, updatedRecipe)=>{
+    Recipes.findByIdAndUpdate(req.params.id, {$push: {ratings: {user: req.body.user, rating: req.body.rating}}}, {new:true, upsert:true}, (err, updatedRecipe)=>{
         res.json(updatedRecipe);
     });
   });
+
+  router.put('/alreadyrated/:id', (req, res)=> {
+    Recipes.findByIdAndUpdate(req.params.id, {ratings: {user:req.body.user, rating: req.body.rating}}, {new:true}, (err, updatedRecipe)=>{
+      res.json(updatedRecipe);
+  });
+});
 
   //========GET/READ ROUTE=======GET CAR
   router.get('/', (req, res) => {
