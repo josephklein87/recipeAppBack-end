@@ -12,6 +12,7 @@ const recipeSchema = new mongoose.Schema(
     vegetarian: Boolean,
     spicy: Boolean,
     favs: Array,
+    avgRating: Number,
     ratings: [{user: String, rating: Number}]
 });
 

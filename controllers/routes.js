@@ -78,6 +78,12 @@ router.post('/', (req, res) => {
   });
 });
 
+router.put('/averagerating/:id', (req, res)=>{
+  Recipes.findByIdAndUpdate(req.params.id, {avgRating: req.body.avg}, {new:true, upsert:true}, (err, updatedRecipe)=>{
+      res.json(updatedRecipe);
+  });
+});
+
   //========GET/READ ROUTE=======GET CAR
   router.get('/', (req, res) => {
     Recipes.find({}, (err, foundRecipe) => {
