@@ -84,6 +84,12 @@ router.put('/averagerating/:id', (req, res)=>{
   });
 });
 
+router.get('/highestrated', (req, res)=>{
+  Recipes.find({}, {$sort: {avgRating: -1}},(err, foundRecipe) =>{
+    res.json(foundRecipe)
+  })
+})
+
   //========GET/READ ROUTE=======GET CAR
   router.get('/', (req, res) => {
     Recipes.find({}, (err, foundRecipe) => {
