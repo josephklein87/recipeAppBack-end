@@ -66,7 +66,7 @@ router.post('/', (req, res) => {
 
   //=========RATINGS ROUTE=====================================
   router.put('/rating/:id', (req, res)=>{
-    Recipes.findByIdAndUpdate(req.params.id, {$set: {ratings: {[req.body.user]: req.body.rating}}}, {new:true, upsert:true}, (err, updatedRecipe)=>{
+    Recipes.findByIdAndUpdate(req.params.id, {$push: {ratings: {[req.body.user]: req.body.rating}}}, {new:true, upsert:true}, (err, updatedRecipe)=>{
         res.json(updatedRecipe);
     });
   });
