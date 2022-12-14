@@ -7,6 +7,9 @@ const Recipes = require('../models/recipes.js')
 //========ROUTES=======//
 //======================//
 
+// Recipes.updateMany({}, {$unset:{ratings: 1}}, (err, deletedRecipe)=>{
+//   console.log(deletedRecipe)
+// })
 
 //========CREATE/POST ROUTE=======ADD CAR
 router.post('/', (req, res) => {
