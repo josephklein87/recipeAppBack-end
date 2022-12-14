@@ -73,7 +73,7 @@ router.post('/', (req, res) => {
   });
 
   router.put('/rating/alreadyrated/:id', (req, res)=> {
-    Recipes.findOneAndUpdate({_id:req.params.id}, {$pull: {ratings: {user: req.body.user}}, $push: {ratings: {user: req.body.user, rating: req.body.rating}}}, {new:true}, (err, updatedRecipe)=>{
+    Recipes.findOneAndUpdate({_id:req.params.id}, {$pull: {ratings: {user: req.body.user}}}, {new:true}, (err, updatedRecipe)=>{
       res.json(updatedRecipe);
   });
 });
